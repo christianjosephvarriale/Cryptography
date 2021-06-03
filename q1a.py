@@ -1,6 +1,7 @@
 
 def num_of_occurences( txt ):
     
+    ## map a character to an integer
     char_map = {
         'a' : 0,
         'b' : 1,
@@ -30,8 +31,10 @@ def num_of_occurences( txt ):
         'z' : 25,
     }
 
+    ## create an empty list init to all 0's of length 26
     char_arr = [0 for i in range(26)]
 
+    ## iterate through the text, every time we see a char increment that position in the char_arr
     for char in txt:
         char_arr[char_map[char]] += 1
 

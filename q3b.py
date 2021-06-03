@@ -71,7 +71,7 @@ def decode_ciphertext():
     secret_key_string = find_secret_key()
 
     ## map the secret key to a number representation
-    secret_key_number_lst = [ num_to_char_map[i] for i in secret_key_string ]
+    secret_key_number_lst = [ char_map[i] for i in secret_key_string ]
 
     plain_text = ''
 
@@ -81,9 +81,22 @@ def decode_ciphertext():
         ## grab n chars from ciphertext
         section = ciphertext[0: len(secret_key_string)]
 
+        ciphertext = ciphertext[len(secret_key_string):]
+
         ## for every char in the section
         for i, char in enumerate(section):
 
-            ## map the char and ith position to a number
+            ## map the char to a number
+            char_mapped = char_map[char]
 
+            ## shift the number by the key in integer form
+            decoded_char = char_mapped - secret_key_number_lst[i]
+            if decoded_char < 0:
+                decoded_char += 26
 
+            decoded_char = num_to_char_map[decoded_char]
+            plain_text += decoded_char
+    
+    print( plain_text )
+
+decode_ciphertext()
